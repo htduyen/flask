@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import render_template, flash, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
@@ -8,30 +10,28 @@ from app.forms import LoginForm, RegistrationForm
 from app.models import User
 
 
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
+
+
 @app.route('/')
 @app.route('/index')
 @login_required
 def index():
-    title = 'Chapter2'
-    persion = {
-        'username': 'Huynh Thanh Duyen',
-        'age': 24
-    }
     posts = [
         {
-           'name': 'Duyen Huynh',
-           'content': 'Example 1'
+            'author': {'username': 'John'},
+            'body': 'Beautiful day in Portland!'
         },
         {
-           'name': 'Duyen Huynh 2',
-           'content': 'Example 2'
-        },
-        {
-           'name': 'Duyen Huynh 3',
-           'content': 'Example 3'
+            'author': {'username': 'Susan'},
+            'body': 'The Avengers movie was so cool!'
         }
     ]
-    return render_template('index.html', title='Home Page', posts=posts)
+    return render_template('index.html', title='Home', posts=posts)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -71,3 +71,14 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+
+@app.route('/user/<username>')
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = [
+        {'author': user, 'body': 'Test post #1'},
+        {'author': user, 'body': 'Test post #2'}
+    ]
+    return render_template('user.html', user=user, posts=posts)

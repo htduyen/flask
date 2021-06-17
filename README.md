@@ -62,8 +62,5 @@ Example:
 * In login page If the username and password are both correct, then I call the ``login_user()`` function, which comes from Flask-Login. This function will register the user as logged in, so that means that any future pages the user navigates to will have the ``current_user`` variable set to that user.
 
 * @login_required: against anonymous users is with a decorator
-    
 
-
-
-
+# Chapter 6: Profile Page and Avatars
