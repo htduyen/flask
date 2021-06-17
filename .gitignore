@@ -22,4 +22,4 @@ __pycache__
 venv/
 .idea/
 app.db
-app/__pycache__/
+microblog.log*

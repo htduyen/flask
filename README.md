@@ -64,3 +64,21 @@ Example:
 * @login_required: against anonymous users is with a decorator
 
 # Chapter 6: Profile Page and Avatars
+
+# Chapter 7: Error Handling
+
+Using dedug mode:
+
+    export FLASK_DEBUG=1
+    set FLASK_DEBUG=1 (Window)
+    flask run
+
+Off debug mode:
+
+    set FLASK_DEBUG=0
+
+Sending Errors by Email:
+
+    Less secure app access: On (Setting on your gmail)
+
+Logs file
