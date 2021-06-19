@@ -92,3 +92,5 @@ Logs file
  but then they could be exploited in CSRF attacks. 
  Because GET requests are harder to protect against CSRF, 
  they should only be used on actions that do not introduce state changes.
+
+# Chapter 9: Pagination
