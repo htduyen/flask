@@ -94,3 +94,5 @@ Logs file
  they should only be used on actions that do not introduce state changes.
 
 # Chapter 9: Pagination
+    
+    https://en.wikipedia.org/wiki/Post/Redirect/Get
