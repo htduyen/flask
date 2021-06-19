@@ -82,3 +82,13 @@ Sending Errors by Email:
     Less secure app access: On (Setting on your gmail)
 
 Logs file
+
+# Chapter 8: Followers
+
+    Cross-site request forgery: CSRF is also used as an abbreviation in defences against CSRF attacks, 
+    such as techniques that use header data, form data, or cookies, to test for and prevent such attacks.
+
+ It would be easier to implement these routes as GET requests, 
+ but then they could be exploited in CSRF attacks. 
+ Because GET requests are harder to protect against CSRF, 
+ they should only be used on actions that do not introduce state changes.
