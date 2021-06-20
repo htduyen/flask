@@ -153,3 +153,25 @@ Requesting a Password Reset: A very popular token standard for this type of proc
     {'a': 'b'}
 
 # Chapter 11: Facelift - Bootstrap
+
+
+# Chapter 12: Datetime
+
+Moment.js is a small open-source JavaScript library that takes date and time rendering to another level
+The moment object provides several methods for different rendering options. Below are some of the most common options:
+    
+    moment('2017-09-28T21:45:23Z').format('L')
+    "09/28/2017"
+    moment('2017-09-28T21:45:23Z').format('LL')
+    "September 28, 2017"
+    moment('2017-09-28T21:45:23Z').format('LLL')
+    "September 28, 2017 2:45 PM"
+    moment('2017-09-28T21:45:23Z').format('LLLL')
+    "Thursday, September 28, 2017 2:45 PM"
+    moment('2017-09-28T21:45:23Z').format('dddd')
+    "Thursday"
+    moment('2017-09-28T21:45:23Z').fromNow()
+    "7 hours ago"
+    moment('2017-09-28T21:45:23Z').calendar()
+    "Today at 2:45 PM"
+
