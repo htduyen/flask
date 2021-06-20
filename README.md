@@ -96,3 +96,59 @@ Logs file
 # Chapter 9: Pagination
     
     https://en.wikipedia.org/wiki/Post/Redirect/Get
+
+# Chapter 10: Email Support
+    
+    DOC: https://pythonhosted.org/Flask-Mail/
+
+    As far as the actual sending of emails, Flask has a popular extension called Flask-Mail that can make the task very easy. As always, this extension is installed with pip:
+        
+        pip install flask-mail
+    
+    The password reset links will have a secure token in them.
+    I'm going to use JSON Web Tokens, which also have a popular Python package:
+            
+        pip install pyjwt
+
+We can start in a second terminal with the following command:
+    
+    python -m smtpd -n -c DebuggingServer localhost:8025
+
+The Flask-Mail extension is configured from the app.config object.
+To configure for this server you will need to set two environment variables:
+        
+    export MAIL_SERVER=localhost
+    export MAIL_PORT=8025
+
+If you prefer to have emails sent for real, you need to use a real email server. If you have one, then you just need to set the MAIL_SERVER, MAIL_PORT, MAIL_USE_TLS, MAIL_USERNAME and MAIL_PASSWORD environment variables for it
+    
+    (venv) $ export MAIL_SERVER=smtp.googlemail.com
+    (venv) $ export MAIL_PORT=587
+    (venv) $ export MAIL_USE_TLS=1
+    (venv) $ export MAIL_USERNAME=<your-gmail-username>
+    (venv) $ export MAIL_PASSWORD=<your-gmail-password>
+
+
+..Note: allow "less secure apps" access to your Gmail account. 
+    
+    https://support.google.com/accounts/answer/6010255?hl=en
+    
+Flask-Mail Usage with ``flask shell``
+    
+    >>> from flask_mail import Message
+    >>> from app import mail
+    >>> msg = Message('test subject', sender=app.config['ADMINS'][0],
+    ... recipients=['your-email@example.com'])
+    >>> msg.body = 'text body'
+    >>> msg.html = '<h1>HTML body</h1>'
+    >>> mail.send(msg)
+
+Requesting a Password Reset: A very popular token standard for this type of process is the JSON Web Token, or JWT.
+    
+    >>> import jwt
+    >>> token = jwt.encode({'a': 'b'}, 'my-secret', algorithm='HS256')
+    >>> token
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhIjoiYiJ9.dvOo58OBDHiuSHD4uW88nfJikhYAXc_sfUHq1mDi4G0'
+    >>> jwt.decode(token, 'my-secret', algorithms=['HS256'])
+    {'a': 'b'}
+
