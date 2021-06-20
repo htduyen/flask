@@ -152,3 +152,4 @@ Requesting a Password Reset: A very popular token standard for this type of proc
     >>> jwt.decode(token, 'my-secret', algorithms=['HS256'])
     {'a': 'b'}
 
+# Chapter 11: Facelift - Bootstrap
