@@ -175,3 +175,10 @@ The moment object provides several methods for different rendering options. Belo
     moment('2017-09-28T21:45:23Z').calendar()
     "Today at 2:45 PM"
 
+# Chapter 13:  I18n and L10n
+
+As you can probably guess, there is a Flask extension that makes working with translations very easy
+    
+    pip install flask-babel
+
+

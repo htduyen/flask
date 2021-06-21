@@ -17,3 +17,6 @@ class Config(object):
     ADMINS = ['thanhduyeny1@gmail.com']
 
     POSTS_PER_PAGE = 2
+
+    # Babel
+    LANGUAGES = ['en', 'es']

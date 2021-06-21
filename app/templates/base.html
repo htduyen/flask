@@ -1,43 +1,36 @@
 {% extends 'bootstrap/base.html' %}
 
 {% block title %}
-    {% if title %}{{ title }} - Microblog{% else %}Welcome to Microblog{% endif %}
+    {% if title %}{{ title }} - Microblog{% else %}{{ _('Welcome to Microblog') }}{% endif %}
 {% endblock %}
 
 {% block navbar %}
     <nav class="navbar navbar-default">
-           <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">Home</a>
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('index') }}">Microblog</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('index') }}">{{ _('Home') }}</a></li>
+                    <li><a href="{{ url_for('explore') }}">{{ _('Explore') }}</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_anonymous %}
+                    <li><a href="{{ url_for('login') }}">{{ _('Login') }}</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('user', username=current_user.username) }}">{{ _('Profile') }}</a></li>
+                    <li><a href="{{ url_for('logout') }}">{{ _('Logout') }}</a></li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> {% if current_user.is_anonymous %} Username {% else %} {{current_user.username}} {% endif%} <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                  {% if current_user.is_anonymous %}
-                       <li><a href="{{ url_for('login') }}">Login</a></li>
-                       <li><a href="{{ url_for('register') }}">Register Now!</a></li>
-                  {% else %}
-                      <li><a href="{{ url_for('user', username=current_user.username) }}">Profile</a></li>
-                      <li><a href="{{ url_for('reset_password_request') }}">Change password</a></li>
-                      <li role="separator" class="divider"></li>
-                      <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                  {% endif %}
-              </ul>
-            </li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
     </nav>
 {% endblock %}
 
@@ -54,10 +47,10 @@
         {# application content needs to be provided in the app_content block #}
         {% block app_content %}{% endblock %}
     </div>
+{% endblock %}
 
-    <!--Moment.js-->
-    {% block scripts %}
-        {{ super() }}
-        {{ moment.include_moment() }}
-    {% endblock %}
+{% block scripts %}
+    {{ super() }}
+    {{ moment.include_moment() }}
+    {{ moment.lang(g.locale) }}
 {% endblock %}
